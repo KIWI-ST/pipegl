@@ -123,16 +123,23 @@ class Status {
         if (CWebGLStatusFLAG[key]) {
             const k = key as SWebGLStatusFLAG;
             const v = this.NEXT_FLAG_SET.get(k);
-            v ? gl.enable(gl[k]) : gl.disable(gl[k]);
-            Status.CURRENT_FLAG_SET.set(k, v);
+            if (v !== undefined) {
+                v ? gl.enable((gl as any)[k]) : gl.disable((gl as any)[k]);
+                Status.CURRENT_FLAG_SET.set(k, v);
+            }
         }
         else if (CWebGLStatusVariable[key]) {
-            const k = key as SWebGLStatusVariable;
+            const k = key as SWebGLStatusVariable as string;
+            const glMethod = (gl as unknown as any)[k] as (...args: any[]) => any;
             const v = this.NEXT_VARIABLE_SET.get(k);
-            gl[k as unknown as string].apply(gl, v);
-            Status.CURRENT_VARIABLE_SET.set(k, v);
+            if (v !== undefined && typeof glMethod === 'function') {
+                glMethod.apply(gl, v);
+                Status.CURRENT_VARIABLE_SET.set(k, v);
+            }
         }
-        else check(false, `Status 错误: 不支持的webgl状态${key}修改，请检查状态是否合法`);
+        else {
+            check(false, `Status 错误: 不支持的webgl状态${key}修改，请检查状态是否合法`);
+        }
     }
 
     /**

@@ -10,4 +10,6 @@ const isBufferArray = (v: any) => {
     return Array.isArray(v) || isTypedArray(v) || isNDArray(v);
 }
 
-export { isBufferArray }
+export {
+    isBufferArray
+}

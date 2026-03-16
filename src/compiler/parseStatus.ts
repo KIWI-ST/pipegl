@@ -16,13 +16,17 @@ const parseStatus = (
 ): Status => {
     const { gl, status } = opts;
     const s0 = new Status(gl);
-    Object.keys(status)?.forEach((key) => {
+    Object.keys(status)?.forEach((key: string) => {
         const v = status[key];
-        if (CWebGLStatusFLAG[key])
-            s0.setFlag(key as SWebGLStatusFLAG, v);
-        else if (CWebGLStatusVariable[key])
-            s0.setVariable(key as SWebGLStatusVariable, v);
-        else check(false, `ParseStatus error:不支持的WebGL状态设置${key}`);
+        if (CWebGLStatusFLAG[key]) {
+            s0.setFlag(key as SWebGLStatusFLAG, v as boolean);
+        }
+        else if (CWebGLStatusVariable[key]) {
+            s0.setVariable(key as SWebGLStatusVariable, v as any[]);
+        }
+        else {
+            check(false, `ParseStatus error: unsupport webgl format. key: ${key}`);
+        }
     });
     return s0;
 }

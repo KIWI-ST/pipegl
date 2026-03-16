@@ -12,7 +12,7 @@ import { IAttributeRecord } from "../res/GVertexArrayObject";
 import { ShapedArrayFormat } from "../core/Format";
 
 /**
- * 
+ * @description
  */
 interface IAttributeBuffer {
     /**
@@ -152,7 +152,7 @@ const parseAttribute = <TA extends TAttribute>(
          *    position:Props<IProp>
          * }
          */
-        else if(v instanceof Props){
+        else if (v instanceof Props) {
             record.p = v;
             record.offset = 0;
             record.stride = 0;

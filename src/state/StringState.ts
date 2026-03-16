@@ -23,8 +23,10 @@ class StringState {
      */
     id = (str: string) => {
         let result = StringState.STRINGSTATE_SET.get(str);
-        if (result) return result;
-        result =  this.stringValues.length;
+        if (result) {
+            return result;
+        }
+        result = this.stringValues.length;
         StringState.STRINGSTATE_SET.set(str, result);
         this.stringValues.push(str);
         return result;
@@ -40,4 +42,6 @@ class StringState {
     }
 }
 
-export { StringState }
+export {
+    StringState
+}

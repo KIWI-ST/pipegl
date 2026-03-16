@@ -8,4 +8,6 @@ const defaultValue = (v: any, dv: any): any => {
     return v === null || v === undefined ? dv : v;
 }
 
-export { defaultValue }
+export {
+    defaultValue
+}

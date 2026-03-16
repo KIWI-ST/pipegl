@@ -20,7 +20,7 @@
     },
     "rootDir": "src",
     "include": [
-        "example/**/*",
+        "example/",
         "dist/**/*",
         "src/**/*",
         "typings.d.ts"

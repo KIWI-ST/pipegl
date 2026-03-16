@@ -20,4 +20,6 @@ const getPixelSize = (component: STextureComponent, channels: number): number =>
     }
 }
 
-export { getPixelSize }
+export {
+    getPixelSize
+}

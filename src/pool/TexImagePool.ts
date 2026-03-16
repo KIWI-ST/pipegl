@@ -62,9 +62,11 @@ class TexImagePool {
      * @returns 
      */
     allocImage = (): ITexImage => {
-        if (this.texImageQueue.length > 0)
+        if (this.texImageQueue.length > 0) {
             return this.texImageQueue.pop();
-        const A = createTexImage(), B = createTexFlag();
+        }
+        const A = createTexImage(),
+            B = createTexFlag();
         return getExtend(A, B) as ITexImage;
     }
 
@@ -73,7 +75,9 @@ class TexImagePool {
      * @param texImage 
      */
     freeImage = (texImage: ITexImage): void => {
-        if (texImage.neddsFree) bufferPool0.free(texImage.data);
+        if (texImage.neddsFree) {
+            bufferPool0.free(texImage.data);
+        }
         getExtend(texImage, createTexImage());
         this.texImageQueue.push(texImage);
     }

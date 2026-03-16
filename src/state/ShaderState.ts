@@ -4,7 +4,7 @@ import { SShaderTarget } from '../core/Support';
 import { GShader, FRAGSHADER_SET, VERTSHADER_SET } from '../res/GShader';
 
 /**
- * 
+ * @class ShaderState
  */
 class ShaderState {
     /**
@@ -39,10 +39,10 @@ class ShaderState {
      * @param stats 
      */
     constructor(
-        gl:WebGLRenderingContext,
-        stringState:StringState,
-        stats:IStats
-    ){
+        gl: WebGLRenderingContext,
+        stringState: StringState,
+        stats: IStats
+    ) {
         this.gl = gl;
         this.stringState = stringState;
         this.stats = stats;

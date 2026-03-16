@@ -85,13 +85,17 @@ class ElementsState {
                     CPrimitive['LINES'] : opts.gElementbuffer.Dimension === 3 ?
                         CPrimitive['TRIANGLES'] : CPrimitive[opts.primitive];
         }
-        else opts.gElementbuffer.Primitive = CPrimitive[opts.primitive || 'TRIANGLES'];
+        else {
+            opts.gElementbuffer.Primitive = CPrimitive[opts.primitive || 'TRIANGLES'];
+        }
         //修正vertcount
         opts.count = opts.count || opts.gElementbuffer.ByteLength;
-        if (opts.component === 'UNSIGNED_SHORT')
+        if (opts.component === 'UNSIGNED_SHORT') {
             opts.count >>= 1;
-        else if (opts.component === 'UNSIGNED_INT')
+        }
+        else if (opts.component === 'UNSIGNED_INT') {
             opts.count >>= 2;
+        }
         //
         opts.gElementbuffer.VertCount = opts.count;
         return opts.gElementbuffer;
@@ -221,9 +225,11 @@ class ElementsState {
      * 
      * @param streamElementbuffer 
      */
-    public destoryStreamElementsbuffer = (streamElementbuffer:GElementsbuffer):void=>{
+    public destoryStreamElementsbuffer = (streamElementbuffer: GElementsbuffer): void => {
         this.streamPool.push(streamElementbuffer);
     }
 }
 
-export { ElementsState }
+export {
+    ElementsState
+}

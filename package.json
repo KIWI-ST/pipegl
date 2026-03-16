@@ -1,10 +1,10 @@
 {
   "name": "pipegl",
-  "version": "0.1.8",
-  "description": "",
+  "version": "1.0.0",
+  "description": "webgl functional style.",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "vite --debug",
+    "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -26,9 +26,8 @@
   "homepage": "https://github.com/KIWI-ST/pipegl#readme",
   "devDependencies": {
     "baboon-image": "^2.1.0",
-    "kiwi.codegen": "^0.0.3",
-    "kiwi.matrix": "^0.6.4",
-    "typescript": "^4.9.5",
-    "vite": "^4.3.5"
+    "typescript": "^5.9.3",
+    "vite": "^8.0.0",
+    "wgpu-matrix": "^3.4.2"
   }
 }

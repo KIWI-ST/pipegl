@@ -69,21 +69,21 @@ class GBuffer extends Dispose {
     /**
      * 
      */
-    get Dimension():number{
+    get Dimension(): number {
         return this.dimension;
     }
 
     /**
      * 
      */
-    get ByteLength():number{
+    get ByteLength(): number {
         return this.byteLength;
     }
 
     /**
      * 
      */
-    get Component():number{
+    get Component(): number {
         return this.component;
     }
 
@@ -144,7 +144,7 @@ class GBuffer extends Dispose {
         this.usage = CUsage[usage || 'STATIC_DRAW'];
         const shape = getArrayShape(data);
         //获取d0, 用于判断dtype
-        const d0 = shape.length === 1 ? data[0] : shape.length === 2 ? data[0][0] : shape.length === 3 ? data[0][0][0] : 0;
+        const d0 = shape.length === 1 ? data[0] : shape.length === 2 ? (data as number[][])[0][0] : shape.length === 3 ? (data as number[][][])[0][0][0] : 0;
         component = component || detectComponent(d0) || 'FLOAT';
         this.component = CComponent[component];
         const flatData = flattenArrayWithShape(data, shape, component);
@@ -163,7 +163,7 @@ class GBuffer extends Dispose {
         this.bind();
         const shape = getArrayShape(data);
         //获取d0，判断dtype
-        const d0 = shape.length === 1 ? data[0] : shape.length === 2 ? data[0][0] : shape.length === 3 ? data[0][0][0] : 0;
+        const d0 = shape.length === 1 ? data[0] : shape.length === 2 ? (data as number[][])[0][0] : shape.length === 3 ? (data as number[][][])[0][0][0] : 0;
         const scomponent = detectComponent(d0) || 'FLOAT';
         this.component = CComponent[scomponent];
         const flatData = flattenArrayWithShape(data, shape, scomponent);
@@ -182,13 +182,13 @@ class GBuffer extends Dispose {
     /**
      * 解绑buffer
      */
-    public unbind =()=>{
+    public unbind = () => {
         this.gl.bindBuffer(this.target, null);
         this.decRef();
     }
 }
 
-export { 
+export {
     BUFFER_SET,
-    GBuffer 
+    GBuffer
 }

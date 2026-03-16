@@ -1,10 +1,9 @@
-import { Mat4, Vec3 } from "kiwi.matrix";
-
 import { fetchTexture } from "../util/createTexture";
 import { createNormals } from "../util/createNormals";
 import { cubeElements, cubePositions } from "../util/createCube";
 
 import { GTexture, IPerformance, PipeGL, TAttribute, TUniform } from "../../src";
+import { mat4, vec3 } from "wgpu-matrix";
 
 interface Attribute extends TAttribute {
     position: number[][];       //顶点坐标
@@ -23,11 +22,15 @@ const RADIUS: number = 700;
 
 const CAMERAPOSITION = [0, 0, 5];
 
-const ProjectionMatrix = Mat4.perspective(Math.PI / 4, RADIUS / RADIUS, 0.01, 100);
+const ProjectionMatrix = mat4.perspective(Math.PI / 4, RADIUS / RADIUS, 0.01, 100);
 
-const ViewMatrix = new Mat4().lookAt(new Vec3().set(CAMERAPOSITION[0], CAMERAPOSITION[1], CAMERAPOSITION[2]), new Vec3().set(0, 0.0, 0), new Vec3().set(0, 1, 0)).invert();
-
-const ModelMatrix = new Mat4().identity();
+const ViewMatrix = mat4.lookAt(
+    vec3.create(CAMERAPOSITION[0], CAMERAPOSITION[1], CAMERAPOSITION[2]),
+    vec3.create(0, 0.0, 0),
+    vec3.create(0, 1, 0)
+);
+const ViewMatrixInvert = mat4.invert(ViewMatrix);
+let ModelMatrix = mat4.identity();
 
 const pipegl0 = new PipeGL({
     width: RADIUS,
@@ -35,18 +38,18 @@ const pipegl0 = new PipeGL({
 });
 
 const cubeSource = [
-    fetchTexture('/assets/cube/negx.jpg', 'negx'),
-    fetchTexture('/assets/cube/negy.jpg', 'negy'),
-    fetchTexture('/assets/cube/negz.jpg', 'negz'),
-    fetchTexture('/assets/cube/posx.jpg', 'posx'),
-    fetchTexture('/assets/cube/posy.jpg', 'posy'),
-    fetchTexture('/assets/cube/posz.jpg', 'posz'),
+    fetchTexture('/example/assets/cube/negx.jpg', 'negx'),
+    fetchTexture('/example/assets/cube/negy.jpg', 'negy'),
+    fetchTexture('/example/assets/cube/negz.jpg', 'negz'),
+    fetchTexture('/example/assets/cube/posx.jpg', 'posx'),
+    fetchTexture('/example/assets/cube/posy.jpg', 'posy'),
+    fetchTexture('/example/assets/cube/posz.jpg', 'posz'),
 ];
 
 Promise.all(cubeSource).then(cubeFaces => {
-
     const w = 512, h = 512, c = 4;
     const faces: {
+        [key: string]: Uint8Array,
         posx: Uint8Array,
         negx: Uint8Array,
         posy: Uint8Array,
@@ -62,8 +65,8 @@ Promise.all(cubeSource).then(cubeFaces => {
         negz: null,
     };
 
-    cubeFaces.forEach(face=>{
-        faces[face.key]=face.buf;
+    cubeFaces.forEach(face => {
+        faces[face.key] = face.buf;
     });
 
     const cubeTexture = pipegl0.textureCube(
@@ -117,9 +120,14 @@ Promise.all(cubeSource).then(cubeFaces => {
         },
 
         uniforms: {
-            projection: ProjectionMatrix.value,
-            view: ViewMatrix.value,
-            model: (performance: IPerformance, batchId: number): number[] => ModelMatrix.rotateY(0.0001).rotateX(0.0003).value,
+            projection: [...ProjectionMatrix],
+            view: [...ViewMatrix],
+            model: (_performance: IPerformance, batchId: number): number[] => {
+                ModelMatrix = mat4.rotateY(ModelMatrix, 0.002);
+                ModelMatrix = mat4.rotateX(ModelMatrix, 0.002);
+                return [...ModelMatrix];
+
+            },
             cameraPosition: CAMERAPOSITION,
             texture: cubeTexture,
         },

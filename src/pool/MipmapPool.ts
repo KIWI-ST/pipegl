@@ -61,7 +61,9 @@ class MipmapPool {
         const texImages = mipmap.images;
         for (let i = 0, len = texImages.length; i < len; ++i) {
             const texImage = texImages[i];
-            if (texImage) texImagePool0.freeImage(texImage);
+            if (texImage) {
+                texImagePool0.freeImage(texImage);
+            }
             texImages[i] = null;
         }
         this.mipmapQueue.push(mipmap);

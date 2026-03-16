@@ -106,7 +106,9 @@ type SWebGLStatusVariable = keyof {
     [key in keyof typeof CWebGLStatusVariable]: string
 }
 
-type SWebGLStatus = { [key in keyof typeof CWebGLStatusFLAG]?: boolean } | { [key in keyof typeof CWebGLStatusVariable]?: any[] }
+type SWebGLStatus =
+    | ({ [key in keyof typeof CWebGLStatusFLAG]?: boolean } & { [key: string]: boolean | undefined })
+    | ({ [key in keyof typeof CWebGLStatusVariable]?: any[] } & { [key: string]: any[] | undefined });
 
 export {
     type SVector,

@@ -74,10 +74,12 @@ class GAttachment extends Dispose {
         super();
         this.gl = gl;
         this.target = CAttachmentTarget[target || 'TEXTURE_2D'] || 0;
-        if (attach instanceof GTexture)
+        if (attach instanceof GTexture) {
             this.gTexture = attach;
-        else if (attach instanceof GRenderbuffer)
+        }
+        else if (attach instanceof GRenderbuffer) {
             this.gRenderbuffer = attach;
+        }
         this.width = this.gTexture?.Width || this.gRenderbuffer?.Width || 0;
         this.height = this.gTexture?.Height || this.gRenderbuffer?.Height || 0;
     }
@@ -88,10 +90,12 @@ class GAttachment extends Dispose {
      */
     public attach = (location: number, textureTarget: number = -1): void => {
         const gl = this.gl, target = textureTarget === -1 ? this.target : textureTarget;
-        if (this.gTexture)
+        if (this.gTexture) {
             gl.framebufferTexture2D(gl.FRAMEBUFFER, location, target, this.gTexture.Texutre, 0);
-        else
+        }
+        else {
             gl.framebufferRenderbuffer(gl.FRAMEBUFFER, location, target, this.gRenderbuffer.Renderbuffer);
+        }
     }
 }
 

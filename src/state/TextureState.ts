@@ -39,10 +39,14 @@ const GL_TEXTURE_CUBE_MAPS: STextureMapTarget[] = [
     'TEXTURE_CUBE_MAP_NEGATIVE_Z'
 ];
 
+type CHANNEL_TEX_COLOR_TYPE = {
+    [key: number]: string
+};
+
 /**
  * 
  */
-const CHANNEL_TEX_COLOR = {
+const CHANNEL_TEX_COLOR: CHANNEL_TEX_COLOR_TYPE = {
     1: 'LUMINANCE',
     2: 'LUMINANCE_ALPHA',
     3: 'RGB',
@@ -231,8 +235,9 @@ class TextureState {
         if (opts.min) {
             texInfo.minFilter = opts.min;
             //}{debugs faces 尚未支持
-            if (TextureState.MIPMAP_FILTERS.indexOf(CTextureMINFilter[texInfo.minFilter]) >= 0)
+            if (TextureState.MIPMAP_FILTERS.indexOf(CTextureMINFilter[texInfo.minFilter]) >= 0) {
                 texInfo.genMipmaps = true;
+            }
         }
         //2.mag filter type
         if (opts.mag) {
@@ -253,8 +258,9 @@ class TextureState {
             texInfo.anisotropic = num;
         }
         //6.记录mipmap.minFilter
-        if (opts.mipmap && !opts.min)
+        if (opts.mipmap && !opts.min) {
             texInfo.minFilter = 'NEAREST_MIPMAP_NEAREST'; // MIPMAP_FILTERS[0]吗，默认0x2700
+        }
         //7.返回texInfo对象
         return texInfo;
     }
@@ -350,8 +356,9 @@ class TextureState {
             stride[2] = 1;
         }
         check(imageData.channels >= 1 && imageData.channels <= 4, `TextureState error: 纹理通道必须在1-4之间`);
-        if (gTexture.TexInfo.genMipmaps)
+        if (gTexture.TexInfo.genMipmaps) {
             mipmap.mipmask = (mipmap.width << 1) - 1;
+        }
         //4.缓存gl.flags相关信息， copyFlags
         gTexture.TexFlag = mipmap as ITexFlag;
         //5.解析data
@@ -376,6 +383,7 @@ class TextureState {
      */
     public createTextureCube = (
         faces: {
+            [key: string]: TypedArrayFormat,
             posx: TypedArrayFormat,
             negx: TypedArrayFormat,
             posy: TypedArrayFormat,
@@ -429,10 +437,12 @@ class TextureState {
             gFaces.push(mipmap);
         });
         gTexture.Mipmap = gFaces[0];
-        if (texInfo.genMipmaps)
+        if (texInfo.genMipmaps) {
             gTexture.Mipmap.mipmask = (gFaces[0].width << 1) - 1;
-        else
+        }
+        else {
             gTexture.Mipmap.mipmask = gFaces[0].mipmask;
+        }
         gTexture.TexFlag = gFaces[0] as ITexFlag;
         //5.1 设置texFlag
         //检查cubemap参数合法性
@@ -447,9 +457,10 @@ class TextureState {
         gFaces.forEach((mipmap: IMipmap) => {
             mipmapPool0.freeMipmap(mipmap);
         });
-        //
         return gTexture;
     }
 }
 
-export { TextureState }
+export {
+    TextureState
+}

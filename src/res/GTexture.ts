@@ -233,7 +233,7 @@ class GTexture extends Dispose {
     }
 
     /**
-     * 
+     * @description
      * @param gl 
      * @param limLib 
      * @param target 
@@ -254,8 +254,9 @@ class GTexture extends Dispose {
         this.refCount = 1;
         this.texture = gl.createTexture();
         this.stats = stats;
-        if (this.target === CTextureMapTarget.TEXTURE_2D)
+        if (this.target === CTextureMapTarget.TEXTURE_2D) {
             this.stats.textureCount++;
+        }
         else if (this.target === CTextureMapTarget.TEXTURE_CUBE_MAP) {
             this.isCubeTexture = true;
             this.stats.cubeCount++;

@@ -9,16 +9,16 @@ import { IAttributeBuffer } from "../compiler/parseAttribute";
  */
 const checkAttribute = (v: any) => {
     let checkResult = false;
-    if (isNDArray(v)){
+    if (isNDArray(v)) {
         checkResult = true;
     }
-    if ((v as IAttributeBuffer).buffer){
+    if ((v as IAttributeBuffer).buffer) {
         checkResult = true;
     }
-    if(v instanceof Props){
+    if (v instanceof Props) {
         checkResult = true;
     }
-    check(checkResult, `不支持的attribute类型，当前仅支持number[], number[][], number[][][], Props<T>, IAttributeBuffer类型`);
+    check(checkResult, `不支持的attribute类型, 当前仅支持number[], number[][], number[][][], Props<T>, IAttributeBuffer类型`);
 }
 
 export { checkAttribute }

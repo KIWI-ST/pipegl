@@ -1,10 +1,10 @@
-import { Block } from "kiwi.codegen";
 import { check } from "../util/check";
 import { Pipeline } from "../core/Pipeline";
 import { GTexture } from "../res/GTexture";
 import { isNDArray } from "../util/isNDArray";
 import { IActiveInfo } from "../res/GProgram";
 import { IUniformRecord } from "./parseUniform";
+import { Block } from "../codegen/code/Block";
 
 interface IUC {
     prefix: string,
@@ -68,7 +68,7 @@ const UComponent = (component: number): IUC => {
 }
 
 /**
- * 
+ * @description
  * @param pipeline 
  * @param iBlock 
  * @param oBlock 

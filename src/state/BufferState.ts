@@ -5,9 +5,9 @@ import { CArraybufferTarget, CUsage } from "../core/Constant";
 import { SArraybufferTarget, SComponent, SDimension, SUsage } from "../core/Support";
 
 /**
- * 
+ * @description
  */
-class BufferState{
+class BufferState {
     /**
      * 
      */
@@ -75,10 +75,12 @@ class BufferState{
             target = opts.target || 'ARRAY_BUFFER';
         const buffer = new GBuffer(this.gl, target, usage, component, dimension);
         buffer.bind();
-        if (!data && byteLength > 0)
+        if (!data && byteLength > 0) {
             this.gl.bufferData(CArraybufferTarget[target], byteLength, CUsage[usage]);
-        else
+        }
+        else {
             buffer.paddingWithData(data, usage, component);
+        }
         this.gBuffer = buffer;
         this.stats.bufferCount++;
         return buffer;

@@ -6,9 +6,11 @@ import { TypedArrayFormat } from '../core/Format';
  * @returns 
  */
 const nextPow16 = (v: number) => {
-    for (let i: number = 16, max: number = (1 << 28); i <= max; i *= 16)
-        if (v <= i)
+    for (let i: number = 16, max: number = (1 << 28); i <= max; i *= 16) {
+        if (v <= i) {
             return i;
+        }
+    }
     return 0;
 }
 
@@ -40,8 +42,9 @@ const nextLog2 = (v: number): number => {
  */
 const interLoop = (n: number): ArrayBuffer[][] => {
     const r: ArrayBuffer[][] = [];
-    for (let i: number = 0; i < n; i++)
+    for (let i: number = 0; i < n; i++) {
         r[i] = [];
+    }
     return r;
 }
 
@@ -107,7 +110,9 @@ class BufferPool {
      * @returns 
      */
     public free = (buffer: ArrayBuffer): void => {
-        if (!buffer) return;
+        if (!buffer) {
+            return;
+        }
         const bufferPool = this.bufferPool;
         bufferPool[nextLog2(buffer.byteLength) >> 2].push(buffer);
     }

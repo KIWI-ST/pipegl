@@ -41,7 +41,7 @@ const checkTexture2D = (
 }
 
 /**
- * 
+ * @description
  * @param texInfo 
  * @param mipData 
  * @param extLib 
@@ -57,12 +57,14 @@ const checkMipmapTexture2D = (
     const w = mipData.width, h = mipData.height, c = mipData.channels;
     check(w > 0 && w <= limLib.maxTextureSize && h > 0 && h <= limLib.maxTextureSize, `CheckTexture2D error: 纹理分辨率错误，长或宽超过设备支持上限${limLib.maxTextureSize}`);
     //2.检查纹理拉伸
-    if (texInfo.wrapS !== 'CLAMP_TO_EDGE' || texInfo.wrapT !== 'CLAMP_TO_EDGE')
+    if (texInfo.wrapS !== 'CLAMP_TO_EDGE' || texInfo.wrapT !== 'CLAMP_TO_EDGE') {
         check(isPowerOf2(w) && isPowerOf2(h), `CheckTexture2D error: 纹理模式非CLAMP时要求分辨率为2的幂`)
+    }
     //3.检查mipmap信息
     if (mipData.mipmask === 1) {
-        if (w !== 1 && h !== 1)
+        if (w !== 1 && h !== 1) {
             check(texInfo.minFilter !== 'LINEAR_MIPMAP_LINEAR' && texInfo.minFilter !== 'LINEAR_MIPMAP_NEAREST' && texInfo.minFilter !== 'NEAREST_MIPMAP_LINEAR' && texInfo.minFilter !== 'NEAREST_MIPMAP_NEAREST', `CheckTexture2D error: min filter必须是mimap类型`);
+        }
     }
     else {
         check(isPowerOf2(w) && isPowerOf2(h), `CheckTexture2D error:纹理模式非CLAMP时要求分辨率为2的幂`);
@@ -93,12 +95,13 @@ const checkMipmapTexture2D = (
         }
     }
     //6.检查压缩纹理
-    if (mipData.compressed)
+    if (mipData.compressed) {
         check(!mipData.genMipmaps, `CheckTexture2D error: 纹理压缩格式不支持生成mipmap`);
+    }
 }
 
 /**
- * 
+ * @description
  * @param info 
  * @param mipmap 
  * @param faces 

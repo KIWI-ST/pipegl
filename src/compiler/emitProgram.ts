@@ -1,4 +1,4 @@
-import { Block } from "kiwi.codegen";
+import { Block } from "../codegen/code/Block";
 import { IPipelineData, Pipeline } from "../core/Pipeline";
 
 /**
@@ -7,11 +7,7 @@ import { IPipelineData, Pipeline } from "../core/Pipeline";
  * @param iBlock 
  * @param pipelineData 
  */
-const emitProgram = (
-    pipeline: Pipeline,
-    iBlock: Block,
-    pipelineData: IPipelineData
-) => {
+const emitProgram = (pipeline: Pipeline, iBlock: Block, pipelineData: IPipelineData) => {
     const PROGRAMSTATE_NAME = pipeline.getVariable('programState');
     //判断program是否需要切换
     //优化点：program切换是比较耗性能的操作

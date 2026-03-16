@@ -14,4 +14,6 @@ const getIdx = (): number => {
     return id++;
 }
 
-export { getIdx }
+export {
+    getIdx
+}

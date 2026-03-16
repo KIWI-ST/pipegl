@@ -16,7 +16,7 @@ import { IAttributeBuffer, TAttribute } from "../compiler/parseAttribute";
 import { IAttributeRecord, GVertexArrayObject, VAO_SET } from "../res/GVertexArrayObject";
 
 /**
- * 
+ * @description
  */
 class AttributeState {
     /**
@@ -115,8 +115,9 @@ class AttributeState {
         this.extVAO = extLib.getByForce('OES_vertex_array_object') as OES_vertex_array_object;
         this.extITA = extLib.getByForce('ANGLE_instanced_arrays') as ANGLE_instanced_arrays;
         this.attributeBindings = new Array(limLib.maxAttributes);
-        for (let i = 0; i < limLib.maxAttributes; i++)
+        for (let i = 0; i < limLib.maxAttributes; i++) {
             this.attributeBindings[i] = {};
+        }
         this.stats = stats;
     }
 
@@ -204,7 +205,6 @@ class AttributeState {
     }
 
     /**
-     * 
      * @param attrs 
      * @param opts 
      * @returns 
@@ -222,24 +222,24 @@ class AttributeState {
         const RECORD_SET = this.applyAttribute(attrs);
         let ELEMENTS: GElementsbuffer = null;
         if (opts.elements) {
-            if (opts.elements instanceof GElementsbuffer)
+            if (opts.elements instanceof GElementsbuffer) {
                 ELEMENTS = opts.elements;
-            else
+            }
+            else {
                 ELEMENTS = this.elementState.createElementsbuffer({
                     data: opts.elements,
                     component: 'UNSIGNED_SHORT',
                     primitive: opts.primitive || 'TRIANGLES'
                 });
-        }
-        const vertexArrayObject = new GVertexArrayObject(
-            {
-                gl: this.gl,
-                extVAO: this.extVAO,
-                extITA: this.extITA,
-                programState: this.programState,
-                stats: this.stats
             }
-        );
+        }
+        const vertexArrayObject = new GVertexArrayObject({
+            gl: this.gl,
+            extVAO: this.extVAO,
+            extITA: this.extITA,
+            programState: this.programState,
+            stats: this.stats
+        });
         vertexArrayObject.refresh({
             recordSet: RECORD_SET,
             elements: ELEMENTS,
@@ -256,7 +256,9 @@ class AttributeState {
      * @param vao 
      */
     public setVAO = (vao: GVertexArrayObject): void => {
-        if (vao) this.current = vao;
+        if (vao) {
+            this.current = vao;
+        }
         else {
             this.Current?.decRef();
             this.current = null;
@@ -264,4 +266,6 @@ class AttributeState {
     }
 }
 
-export { AttributeState }
+export {
+    AttributeState
+}

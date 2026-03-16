@@ -7,7 +7,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Vite Chrome",
+            "name": "pipegl",
             "url": "http://localhost:4080/example/index.html",
             "webRoot": "${workspaceFolder}",
         }

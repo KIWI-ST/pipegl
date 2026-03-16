@@ -11,7 +11,7 @@ import { GElementsbuffer } from "./GElementsbuffer";
 import { CArraybufferTarget, CAttributeTS, CPrimitive } from "../core/Constant";
 
 /**
- * 
+ * @description
  */
 interface IAttributeRecord extends IPipelineLink {
     /**
@@ -70,7 +70,7 @@ interface IAttributeRecord extends IPipelineLink {
 const VAO_SET: Map<number, GVertexArrayObject> = new Map();
 
 /**
- * 
+ * @description
  */
 class GVertexArrayObject extends Dispose {
     /**
@@ -84,7 +84,7 @@ class GVertexArrayObject extends Dispose {
      * 
      */
     decRef(): void {
-        if(this.refCount-- == 0){
+        if (this.refCount-- == 0) {
             this.dispose();
         }
     }
@@ -265,8 +265,9 @@ class GVertexArrayObject extends Dispose {
                     gl.vertexAttribPointer(pos, size, att.component, att.normalized, att.stride, att.offset);
                     gl.enableVertexAttribArray(pos);
                     //实例化绘制设置
-                    if (this.extITA && att.divisor)
+                    if (this.extITA && att.divisor) {
                         this.extITA.vertexAttribDivisorANGLE(pos, att.divisor);
+                    }
                 } else if (Array.isArray(att.buffer)) {
                     const act = this.programState.Current.AttActiveInfo.get(loc);
                     check(act, `GVertexArrayObject 错误: VAO绑定属性与当前Program不一致`);

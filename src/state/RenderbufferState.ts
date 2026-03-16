@@ -5,12 +5,10 @@ import { Extension } from "../core/Extension";
 import { SRenderbufferColor } from "../core/Support";
 import { GRenderbuffer, RENDERBUFFER_SET } from "../res/GRenderbuffer";
 
-
 /**
  * @author axmand
  */
 class RenderbufferState {
-
     /**
      * 
      */

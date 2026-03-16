@@ -429,7 +429,11 @@ const CColorSpace = {
     BROWSER_DEFAULT_WEBGL: 0x9244,
 }
 
-const CTextureComponent = {
+type TextureComponent_TYPE = {
+    [key: string]: number;
+};
+
+const CTextureComponent: TextureComponent_TYPE = {
     /**
      * 0-255
      */
@@ -491,10 +495,14 @@ const CTextureComponent = {
     UNSIGNED_INT_24_8_WEBGL: 0x84FA,
 }
 
+type TextureColor_Type = {
+    [key: string]: number
+}
+
 /**
  * indicate texture channels
  */
-const CTextureColor = {
+const CTextureColor: TextureColor_Type = {
     /**
      * 
      */
@@ -571,10 +579,14 @@ const CTextureColor2Component = {
     RGB5_A1: 'UNSIGNED_SHORT_5_5_5_1'
 }
 
+type TextureCompressed_TYPE = {
+    [key: string]: number;
+};
+
 /**
  * compress algorithm 
  */
-const CTextureCompressed = {
+const CTextureCompressed: TextureCompressed_TYPE = {
     /**
      * rgb s3tc dxt1
      */
@@ -596,10 +608,14 @@ const CTextureCompressed = {
     COMPRESSED_RGBA_S3TC_DXT5_EXT: 0x83F3,
 }
 
+type TextureComponentSize_TYPE = {
+    [key: number]: number;
+};
+
 /**
  * texture component to size
  */
-const CTextureComponentSize = {
+const CTextureComponentSize: TextureComponentSize_TYPE = {
     /**
      * byte, 5120
      */
@@ -661,10 +677,14 @@ const CTextureComponentSize = {
     0x84FA: 4,
 }
 
+type TextureChannelCount_TYPE = {
+    [key: number]: number,
+}
+
 /**
  * combine texture channel count
  */
-const CTextureChannelCount = {
+const CTextureChannelCount: TextureChannelCount_TYPE = {
     /**
      * lumiance
      */
@@ -797,10 +817,14 @@ const CWebGLStatusTYPE = {
     NUMBER: 5,
 }
 
+type WebGLStatusFLAG_TYPE = {
+    [key: string]: number
+};
+
 /**
  * 
  */
-const CWebGLStatusFLAG = {
+const CWebGLStatusFLAG: WebGLStatusFLAG_TYPE = {
     /**
      * 
      */
@@ -848,9 +872,16 @@ const CWebGLStatusFLAG = {
 }
 
 /**
- * 
+ * @description
  */
-const CWebGLStatusVariable = {
+type WebGLStatusVariable_TYPE = {
+    [key: string]: number
+};
+
+/**
+ * @description
+ */
+const CWebGLStatusVariable: WebGLStatusVariable_TYPE = {
     /**
      * 
      */
@@ -874,7 +905,7 @@ const CWebGLStatusVariable = {
     /**
      * blend func
      */
-    blendFunc:CWebGLStatusTYPE.DECARRAY,
+    blendFunc: CWebGLStatusTYPE.DECARRAY,
 
     /**
      * 
@@ -919,7 +950,7 @@ const CWebGLStatusVariable = {
     /**
      * 
      */
-    sampleCoverage:CWebGLStatusTYPE.DECARRAY,
+    sampleCoverage: CWebGLStatusTYPE.DECARRAY,
 
     /**
      * 
@@ -939,7 +970,7 @@ const CWebGLStatusVariable = {
     /**
      * 模板缓冲后的操作方式
      */
-    stencilOp:CWebGLStatusTYPE.DECARRAY,
+    stencilOp: CWebGLStatusTYPE.DECARRAY,
 
     /**
      * 
@@ -947,60 +978,64 @@ const CWebGLStatusVariable = {
     viewport: CWebGLStatusTYPE.DECARRAY,
 }
 
+type ATTRIBUTE_TYPE = {
+    [key: number]: number;
+};
+
 /**
  * active attribute info type size
  */
-const CAttributeTS={
+const CAttributeTS: ATTRIBUTE_TYPE = {
     /**
      * FLOAT
      */
-    5126:1,     //float
+    5126: 1,     //float
 
     /**
      * FLOAT_VEC2
      */
-    35664:2,
+    35664: 2,
 
     /**
      * FLOAT_VEC3
      */
-    35665:3,  
+    35665: 3,
 
     /**
      * FLOAT_VEC4
      */
-    35666:4,
+    35666: 4,
 
     /**
      * INT_VEC2
      */
-    35667:2,    
+    35667: 2,
 
     /**
      * INT_VEC3
      */
-    35668:3,    
+    35668: 3,
 
     /**
      * INT_VEC4
      */
-    35669:4,
+    35669: 4,
 
     /**
      * BOOL_VEC2
      */
-    35671:2,   
+    35671: 2,
 
     /**
      * BOOL_VEC3
      */
-    35672:3,   
+    35672: 3,
 
     /**
      * BOOL_VEC4
      */
-    35673:4,
-}
+    35673: 4,
+};
 
 export {
     CWebGLStatusTYPE,

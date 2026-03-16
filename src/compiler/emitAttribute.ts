@@ -1,9 +1,9 @@
-import { Block } from "kiwi.codegen";
 import { Pipeline } from "../core/Pipeline";
 import { Extension } from "../core/Extension";
 import { IActiveInfo } from "../res/GProgram";
 import { CArraybufferTarget, CAttributeTS } from "../core/Constant";
 import { IAttributeRecord, GVertexArrayObject } from "../res/GVertexArrayObject";
+import { Block } from "../codegen/code/Block";
 
 /**
  * 
@@ -62,7 +62,7 @@ const emitBuffer = (
         cond3_1.Else.push(`${BINDING_NAME}.buffer.bind()`);
         cond3_1.Else.push(`${GL_NAME}.vertexAttribPointer(${LOCATION_NAME},${BINDING_NAME}.size,${BINDING_NAME}.component, ${BINDING_NAME}.normalized, ${BINDING_NAME}.offset, ${BINDING_NAME}.stride)`);
         // cond3_1.Else.push(`${GL_NAME}.enableVertexAttribArray(${LOCATION_NAME})`);
-    } 
+    }
     //buffer是存在的，只需要应用并赋值
     else {
         //判断2，可行条件下执行buffer赋值操作

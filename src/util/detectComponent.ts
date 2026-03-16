@@ -30,4 +30,6 @@ const detectComponent = (data: any): SComponent => {
     }
 }
 
-export { detectComponent }
+export {
+    detectComponent
+}

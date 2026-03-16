@@ -1,9 +1,9 @@
-import { Block } from "kiwi.codegen";
 import { Extension } from "../core/Extension";
 import { emitElement } from "./emitElement";
 import { emitUniform } from "./emitUniform";
 import { emitAttribute } from "./emitAttribute";
 import { IPipelineData, Pipeline } from "../core/Pipeline";
+import { Block } from "../codegen/code/Block";
 
 /**
  * 
@@ -26,7 +26,7 @@ const emitBatch = (
     batchBlock.push(`for(${LOOP_BATCH_NAME};${LOOP_BATCH_NAME}<p0.length;++${LOOP_BATCH_NAME}){`);
     const scope0 = batchBlock.createScope(), iBlock = scope0.Entry, oBlock = scope0.Exit;
     //2.处理attribute
-    emitAttribute(pipeline, iBlock, extLib, pipelineData.vao, pipelineData.program.Attributes, pipelineData.attributeRecordSet,P0_NAME);
+    emitAttribute(pipeline, iBlock, extLib, pipelineData.vao, pipelineData.program.Attributes, pipelineData.attributeRecordSet, P0_NAME);
     //2.处理uniform
     emitUniform(pipeline, iBlock, oBlock, pipelineData.program.Uniforms, pipelineData.uniformRecordSet, P0_NAME);
     //3.batch draw

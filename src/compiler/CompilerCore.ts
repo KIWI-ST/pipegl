@@ -32,7 +32,7 @@ import { IAttributeRecord, GVertexArrayObject } from "../res/GVertexArrayObject"
 import { IFramebufferSetting, parseFramebuffer } from "./parseFramebuffer";
 
 /**
- * 
+ * @description
  */
 interface ICompileOption<TA extends TAttribute, TU extends TUniform> {
     /**
@@ -428,7 +428,7 @@ class CompilerCore {
     }
 }
 
-export { 
+export {
     type ICompileOption,
-    CompilerCore 
+    CompilerCore
 }

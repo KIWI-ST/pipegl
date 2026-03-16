@@ -63,7 +63,9 @@ class GFramebuffer extends Dispose {
         this.depthAttachment.decRef();
         this.stencilAttachment.decRef();
         this.depthStencilAttachment.decRef();
-        if (--this.refCount <= 0) this.dispose();
+        if (--this.refCount <= 0) {
+            this.dispose();
+        }
     }
 
     /**
@@ -201,14 +203,14 @@ class GFramebuffer extends Dispose {
     /**
      * 
      */
-    public bind = (target:number = 0): void => {
-        if(!this.IsCubeMapAttachment){
+    public bind = (target: number = 0): void => {
+        if (!this.IsCubeMapAttachment) {
             check(target === 0, `GFramebuffer Error: 非cube map FBO时只允许绑定0号fbo。`);
             this.refCount++;
             this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.framebuffer);
         }
-        else{
-            check(target >= 0&&target<6, `GFramebuffer Error: cube map FBO只允许绑定0-5号FBO。`);
+        else {
+            check(target >= 0 && target < 6, `GFramebuffer Error: cube map FBO只允许绑定0-5号FBO。`);
             this.refCount++;
             this.gl.bindFramebuffer(this.gl.FRAMEBUFFER, this.framebufferCube[target]);
         }
@@ -281,7 +283,7 @@ class GFramebuffer extends Dispose {
             //针对cubemap需要遍历6次
             check(this.colorAttachments.length === 1, `GFramebuffer Error: cube map贴图时仅支持colorAttachment0为cube map Attachment`);
             const cubeAttachment = this.colorAttachments[0];
-            this.framebufferCube = [gl.createFramebuffer(),gl.createFramebuffer(),gl.createFramebuffer(),gl.createFramebuffer(),gl.createFramebuffer(),gl.createFramebuffer()];
+            this.framebufferCube = [gl.createFramebuffer(), gl.createFramebuffer(), gl.createFramebuffer(), gl.createFramebuffer(), gl.createFramebuffer(), gl.createFramebuffer()];
             this.framebufferCube.forEach((fb, i: number) => {
                 gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
                 cubeAttachment.attach(gl.COLOR_ATTACHMENT0, TEXTURE_CUBE_MAP_POSITIVE_X + i);

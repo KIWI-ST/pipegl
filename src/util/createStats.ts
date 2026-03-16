@@ -1,5 +1,6 @@
 /**
- * webgl object/resource stats
+ * @description
+ *  webgl object/resource stats
  */
 interface IStats {
     /**
@@ -25,7 +26,7 @@ interface IStats {
     /**
      * 
      */
-    framebufferCubeCount:number;
+    framebufferCubeCount: number;
 
     /**
      * shader count
@@ -65,7 +66,7 @@ const createStats = (): IStats => {
         bufferCount: 0,
         elementsCount: 0,
         framebufferCount: 0,
-        framebufferCubeCount:0,
+        framebufferCubeCount: 0,
         shaderCount: 0,
         textureCount: 0,
         cubeCount: 0,
@@ -75,7 +76,7 @@ const createStats = (): IStats => {
     return stats;
 }
 
-export { 
+export {
     type IStats,
-    createStats 
+    createStats
 }

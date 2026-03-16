@@ -1,9 +1,6 @@
-import { Mat4, Vec3 } from "kiwi.matrix";
-
+import { mat4, vec3 } from 'wgpu-matrix';
 import { cubeElements, cubePositions, cubeUvs } from "../util/createCube";
-
 import { IPerformance, PipeGL, TAttribute, TUniform } from "../../src";
-
 
 interface Attribute extends TAttribute {
     position: number[][];   //顶点坐标
@@ -20,11 +17,14 @@ const RADIUS: number = 700;
 
 const CAMERAPOSITION = [0, 0, 5];
 
-const ProjectionMatrix = Mat4.perspective(Math.PI / 4, RADIUS / RADIUS, 0.01, 100);
-
-const ViewMatrix = new Mat4().lookAt(new Vec3().set(CAMERAPOSITION[0], CAMERAPOSITION[1], CAMERAPOSITION[2]), new Vec3().set(0, 0.0, 0), new Vec3().set(0, 1, 0)).invert();
-
-const ModelMatrix = new Mat4().identity();
+const ProjectionMatrix = mat4.perspective(Math.PI / 4, RADIUS / RADIUS, 0.01, 100);
+const ViewMatrix = mat4.lookAt(
+    vec3.create(CAMERAPOSITION[0], CAMERAPOSITION[1], CAMERAPOSITION[2]),
+    vec3.create(0, 0.0, 0),
+    vec3.create(0, 1, 0)
+);
+const ViewMatrixInvert = mat4.invert(ViewMatrix);
+let ModelMatrix = mat4.identity();
 
 const pipegl0 = new PipeGL({
     width: RADIUS,
@@ -64,9 +64,12 @@ const draw0 = pipegl0.compile<Attribute, Uniform>({
     },
 
     uniforms: {
-        projection: ProjectionMatrix.value,
-        view: ViewMatrix.value,
-        model: (performance: IPerformance, batchId: number): number[] => ModelMatrix.rotateY(0.005).value,
+        projection: [...ProjectionMatrix],
+        view: [...ViewMatrix],
+        model: (performance: IPerformance, batchId: number): number[] => {
+            ModelMatrix = mat4.rotateY(ModelMatrix, 0.005);
+            return [...ModelMatrix];
+        },
     },
 
     elements: cubeElements

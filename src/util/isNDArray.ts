@@ -14,4 +14,6 @@ const isNDArray = (v: any): boolean => {
     return false;
 }
 
-export { isNDArray }
+export {
+    isNDArray
+}
